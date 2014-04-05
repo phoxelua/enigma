@@ -1,7 +1,27 @@
-body { font-family: sans-serif; color: #fff; background: #000; }
+body { font-family:arial, sans-serif; background: #fff; background-image:url('../images/whitediamond.png');}
 
 
 .search {
+    margin-top: 5%;
 	margin-left:10%;
-	width:50%;
+	width:30%;
+    letter-spacing: -2px;
 }
+
+
+.start{
+    background-color: transparent;
+    border:none;
+    display:inline;
+    width:75px;
+}
+
+
+
+.end{
+    background-color: transparent;
+    border:none;
+    width:75px;
+    display:inline;
+}
+
