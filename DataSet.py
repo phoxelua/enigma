@@ -1,4 +1,4 @@
-# import numpy
+import numpy
 import scipy
 
 class DataSet:
@@ -14,3 +14,7 @@ class DataSet:
 
 	def calcStd(self):
 		return scipy.nanstd(self.data.values())
+
+	def calcR(self, dataset):
+		from scipy import stats
+		return stats.pearsonr(self.data.values(), dataset.data.values())

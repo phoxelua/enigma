@@ -57,6 +57,7 @@ class Input:
 			year += str(i) + ','
 
 		url = purl + year[:len(year)-1] + "&resultformat=json"	
+		print url
 		json = self.getJSON(url)
 		print "JSON retrieved."
 
