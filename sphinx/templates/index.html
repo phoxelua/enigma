@@ -1,12 +1,27 @@
 
 <!doctype html>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 
+<html>
+<head>
+<title>Sphinx</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
 <img src ="{{ url_for('static', filename='images/logo.png') }}">
 
+<div class="search">
 <form action="." method="POST">
-        <input type="text" name="query">
-        <input type="submit" name="my-form" value="Send">
+        <input type="text" class="form-control" name="query">
+        <input type="text" class="form-control" name="query">
+        <input type="text" class="form-control" name="query">
+        
 </form>
+</div>
 
 {{ query }}
+
+</body>
+
+</html>
