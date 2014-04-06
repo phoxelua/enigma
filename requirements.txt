@@ -1,0 +1,13 @@
+Archey3==0.4
+Flask==0.10.1
+Flask-Bootstrap==3.1.1.2
+Jinja2==2.7.2
+MarkupSafe==0.19
+Werkzeug==0.9.4
+freeze==0.8.0
+itsdangerous==0.24
+jellyfish==0.2.1
+pyxdg==0.25
+requests==2.2.1
+six==1.6.1
+us==0.7.1
