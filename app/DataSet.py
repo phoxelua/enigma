@@ -10,10 +10,10 @@ class DataSet:
 		self.std = self.calcStd()
 
 	def calcMean(self):
-		return scipy.nanmean(self.data.values())
+		return scipy.mean(self.data.values())
 
 	def calcStd(self):
-		return scipy.nanstd(self.data.values())
+		return scipy.std(self.data.values())
 
 	def calcR(self, dataset):
 		from scipy import stats
