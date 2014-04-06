@@ -10,10 +10,10 @@ KEYS = {"census" : "af52de2bd3b76ac873857b9ca728ccfe93b845b7", "bea" : "F2B4C8A5
 
 
 #Dictionary of datatype-source
-SOURCE = {"pop": "bea"}
+SOURCE = {"pop": "bea", "gdp": "bea"}
 
 #Dictionary of datatype-keycode
-KEYCODES = {"pop" : "POP_SI"}
+KEYCODES = {"pop" : "POP_SI", "gdp": "bea"} #IMPORTANT: MUST CONSIDER START YEARS TOO!
 
 
 class Input:
@@ -24,7 +24,7 @@ class Input:
 
 
 	def __init__(self, datatype1 ,datatype2, country1, country2, state1, state2, county1, county2, start, end): 
-		self.datatype1 = datatype1
+		self.datatype1 = datatype1 #to map source dict
 		self.datatype2 = datatype2
 		
 		self.country1= country1
