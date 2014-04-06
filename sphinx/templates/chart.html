@@ -26,7 +26,7 @@
 var xdata = {{ data1 }},
     ydata = {{ data2 }};
 var r = {{ R }},
-	m = {{ m }}.
+	m = {{ m }},
 	b = {{ b }};
 
 // size and margins for the chart
@@ -96,6 +96,10 @@ g.append("svg:line")
     .attr("y2", y(m*xdata[xdata.length-1]+b))
     .style("stroke", "rgb(6,120,155)")   
     .style("stroke-width", 10);
+
+// g.append("svg:circle")
+// 	.attr("cy", 48)
+// 	.attr("cx", 60248)    
 
 // text label for the x axis
 g.append("text")      

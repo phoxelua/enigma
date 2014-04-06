@@ -18,3 +18,8 @@ class DataSet:
 	def calcR(self, dataset):
 		from scipy import stats
 		return stats.pearsonr(self.data.values(), dataset.data.values())
+
+	# Returns slope, intercept, r, p, stderr
+	def linearRegression(self, dataset):
+		from scipy import stats
+		return stats.linregress(self.data.values(), dataset.data.values())
