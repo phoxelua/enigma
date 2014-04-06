@@ -46,17 +46,20 @@ def index():
 
 @app.route('/', methods=['POST'])
 def my_form_post():
-    query = request.form['query']
+    data1 = request.form['data1']
+    data2 = request.form['data2']
+    start = request.form['start']
+    end = request.form['end']
     # uinput = Input(query1, query2, query3)
     # # uinput = Input(data1 ,data2, country1, country2, state1, state2, county1, county2, start, end)
     # d1 = DataSet(uinput.makeDictionary(1))
-    # d2 = DataSet(uinput.makeDictionary(2))    
+    # d2 = DataSet(uinput.makeDictionary(2))
     # r = d1.calcR(d2)
 
     # return render_template('chart.html', data1=d1.data.values(), data2=d2.data.values(), R=r)
     # return render_template('chart.html', data1=[1,2,3,4], data2=[1,1,1,1], R=.001)
 
-    return render_template('index.html', query=query)
+    return render_template('index.html', data1=data1, data2=data2, start=start, end=end)
 
 @app.route('/chart', methods=['GET','POST'])
 def chart():
