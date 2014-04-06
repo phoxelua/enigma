@@ -1,69 +1,69 @@
-var data = [3, 6, 2, 7, 5, 2, 1, 3, 8, 9, 2, 5, 7],
-	w = 400,
-	h = 200,
-	margin = 20,
-	y = d3.scale.linear().domain([0, d3.max(data)]).range([0 + margin, h - margin]),
-	x = d3.scale.linear().domain([0, data.length]).range([0 + margin, w - margin])
+// data that you want to plot, I've used separate arrays for x and y values
+var xdata = {{ data1 }},
+    ydata = {{ data2 }};
 
-	var vis = d3.select("body")
-	    .append("svg:svg")
-	    .attr("width", w)
-	    .attr("height", h)
+var r = {{ R }}
 
-	var g = vis.append("svg:g")
-	    .attr("transform", "translate(0, 200)");
-	
-	var line = d3.svg.line()
-	    .x(function(d,i) { return x(i); })
-	    .y(function(d) { return -1 * y(d); })
-	
-	g.append("svg:path").attr("d", line(data));
-	
-	g.append("svg:line")
-	    .attr("x1", x(0))
-	    .attr("y1", -1 * y(0))
-	    .attr("x2", x(w))
-	    .attr("y2", -1 * y(0))
+// size and margins for the chart
+var margin = {top: 20, right: 15, bottom: 60, left: 60}
+  , width = 960 - margin.left - margin.right
+  , height = 500 - margin.top - margin.bottom;
 
-	g.append("svg:line")
-	    .attr("x1", x(0))
-	    .attr("y1", -1 * y(0))
-	    .attr("x2", x(0))
-	    .attr("y2", -1 * y(d3.max(data)))
-	
-	g.selectAll(".xLabel")
-	    .data(x.ticks(5))
-	    .enter().append("svg:text")
-	    .attr("class", "xLabel")
-	    .text(String)
-	    .attr("x", function(d) { return x(d) })
-	    .attr("y", 0)
-	    .attr("text-anchor", "middle")
+// x and y scales, I've used linear here but there are other options
+// the scales translate data values to pixel values for you
+var x = d3.scale.linear()
+          .domain([0, d3.max(xdata)])  // the range of the values to plot
+          .range([ 0, width ]);        // the pixel range of the x-axis
 
-	g.selectAll(".yLabel")
-	    .data(y.ticks(4))
-	    .enter().append("svg:text")
-	    .attr("class", "yLabel")
-	    .text(String)
-	    .attr("x", 0)
-	    .attr("y", function(d) { return -1 * y(d) })
-	    .attr("text-anchor", "right")
-	    .attr("dy", 4)
-	
-	g.selectAll(".xTicks")
-	    .data(x.ticks(5))
-	    .enter().append("svg:line")
-	    .attr("class", "xTicks")
-	    .attr("x1", function(d) { return x(d); })
-	    .attr("y1", -1 * y(0))
-	    .attr("x2", function(d) { return x(d); })
-	    .attr("y2", -1 * y(-0.3))
+var y = d3.scale.linear()
+          .domain([0, d3.max(ydata)])
+          .range([ height, 0 ]);
 
-	g.selectAll(".yTicks")
-	    .data(y.ticks(4))
-	    .enter().append("svg:line")
-	    .attr("class", "yTicks")
-	    .attr("y1", function(d) { return -1 * y(d); })
-	    .attr("x1", x(-0.3))
-	    .attr("y2", function(d) { return -1 * y(d); })
-	    .attr("x2", x(0))
+// the chart object, includes all margins
+var chart = d3.select('body')
+.append('svg:svg')
+.attr('width', width + margin.right + margin.left)
+.attr('height', height + margin.top + margin.bottom)
+.attr('class', 'chart')
+
+// the main object where the chart and axis will be drawn
+var main = chart.append('g')
+.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+.attr('width', width)
+.attr('height', height)
+.attr('class', 'main')   
+
+// draw the x axis
+var xAxis = d3.svg.axis()
+.scale(x)
+.orient('bottom');
+
+main.append('g')
+.attr('transform', 'translate(0,' + height + ')')
+.attr('class', 'main axis date')
+.call(xAxis);
+
+// draw the y axis
+var yAxis = d3.svg.axis()
+.scale(y)
+.orient('left');
+
+main.append('g')
+.attr('transform', 'translate(0,0)')
+.attr('class', 'main axis date')
+.call(yAxis);
+
+// draw the graph object
+var g = main.append("svg:g"); 
+
+g.selectAll("scatter-dots")
+  .data(ydata)  // using the values in the ydata array
+  .enter().append("svg:circle")  // create a new circle for each value
+      .attr("cy", function (d) { return y(d); } ) // translate y value to a pixel
+      .attr("cx", function (d,i) { return x(xdata[i]); } ) // translate x value
+      .attr("r", 10) // radius of circle
+      .style("opacity", 0.6); // opacity of circle
+
+
+
+

@@ -46,21 +46,26 @@ def index():
 
 @app.route('/', methods=['POST'])
 def my_form_post():
-    query = request.form['query']
+    data1 = request.form['data1']
+    data2 = request.form['data2']
+    start = request.form['start']
+    end = request.form['end']  
+    print start, end  
     # uinput = Input(query1, query2, query3)
     # # uinput = Input(data1 ,data2, country1, country2, state1, state2, county1, county2, start, end)
     # d1 = DataSet(uinput.makeDictionary(1))
     # d2 = DataSet(uinput.makeDictionary(2))    
     # r = d1.calcR(d2)
 
+
     # return render_template('chart.html', data1=d1.data.values(), data2=d2.data.values(), R=r)
     # return render_template('chart.html', data1=[1,2,3,4], data2=[1,1,1,1], R=.001)
 
-    return render_template('index.html', query=query)
+    return render_template('index.html', query=start)
 
 @app.route('/chart', methods=['GET','POST'])
 def chart():
-    return render_template('chart.html', data1=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], data2=[11, 10, 2, 7, 5, 21, 1, 2, 8, 9, 1, 5, 1], R=r)
+    return render_template('chart.html', data1=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], data2=[11, 10, 2, 7, 5, 21, 1, 2, 8, 9, 1, 5, 1], R=r, m=2, b=4)
 
 
 if __name__ == '__main__':
