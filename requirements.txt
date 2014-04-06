@@ -10,4 +10,5 @@ pyxdg==0.25
 requests==2.2.1
 six==1.6.1
 us==0.7.1
+numpy==1.8.0
 scipy==0.13.2

@@ -1,3 +1,4 @@
+import numpy
 import scipy
 
 class DataSet:
