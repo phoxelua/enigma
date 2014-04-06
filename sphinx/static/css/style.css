@@ -25,3 +25,9 @@ body { font-family:arial, sans-serif; background: #fff; background-image:url('..
     display:inline;
 }
 
+.pic{
+    position:fixed;
+    margin-left: 40%;
+    margin-top: -400px;
+}
+
