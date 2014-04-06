@@ -42,11 +42,11 @@ var margin = {top: 20, right: 15, bottom: 60, left: 60}
 // x and y scales, I've used linear here but there are other options
 // the scales translate data values to pixel values for you
 var x = d3.scale.linear()
-          .domain([0, d3.max(xdata)])  // the range of the values to plot
+          .domain([d3.min(xdata), d3.max(xdata)])  // the range of the values to plot
           .range([ 0, width ]);        // the pixel range of the x-axis
 
 var y = d3.scale.linear()
-          .domain([0, d3.max(ydata)])
+          .domain([d3.min(ydata), d3.max(ydata)])
           .range([ height, 0 ]);
 
 // the chart object, includes all margins
@@ -126,9 +126,9 @@ g.selectAll("scatter-dots")
 // 	   .attr("fill", "red");
 
 g.append("svg:line")
-    .attr("x1", 0)
-    .attr("y1", y(b))
-    .attr("x2", width)
+    .attr("x1", x(d3.min(xdata)))
+    .attr("y1", y(m*d3.min(xdata)+b))
+    .attr("x2", x(xdata[xdata.length-1]))
     .attr("y2", y(m*xdata[xdata.length-1]+b))
     .style("stroke", "rgb(6,120,155)")   
     .style("stroke-width", 10)
