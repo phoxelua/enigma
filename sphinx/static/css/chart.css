@@ -12,3 +12,17 @@ text {
     font-family: Arial;
     font-size: 12pt;
 }
+
+
+g text:hover {
+	fill:black;
+}
+
+
+
+
+circle:hover {
+	stroke:red;
+	fill:red;
+}
+
