@@ -28,19 +28,38 @@ body { font-family:arial, sans-serif; background: #fff; background-image:url('..
 .pic{
     position:fixed;
     margin-left: 40%;
-    margin-top: -400px;
+    margin-top: -31%;
+    height:cover;
 }
 
-div.tooltip {   
-  position: absolute;           
-  text-align: center;           
-  width: 60px;                  
-  height: 20px;                 
-  padding: 2px;             
-  font: 12px sans-serif;        
-  /*background: lightsteelblue;   */
-  border: 0px;      
-  /*border-radius: 8px;           */
-  pointer-events: none;         
+.chart{
+    position:fixed;
+    margin-left: 40%;
+    margin-top: -24%;
+    height:cover;
 }
+
+.chartlabel{
+    position:fixed;
+    margin-left: 60%;
+    margin-top: -29%;
+    color:#666;
+    opacity: 0.7;
+    letter-spacing: -3px;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 20px;
+  padding: 2px;
+  font: 12px sans-serif;
+  /*background: lightsteelblue;   */
+  border: 0px;
+  /*border-radius: 8px;           */
+  pointer-events: none;
+}
+
+
 

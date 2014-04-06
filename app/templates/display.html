@@ -1,0 +1,208 @@
+
+<!doctype html>
+
+<html>
+<head>
+<title>Sphinx</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+<script src="http://d3js.org/d3.v3.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jQuery.js') }}"></script>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/chart.css') }}">
+</head>
+
+<body>
+<img src ="{{ url_for('static', filename='images/logo.png') }}">
+
+<div class="search">
+
+<!-- <form action="." method="POST"> -->
+<!-- <form action="." method="POST" class="form-inline">
+        <font size = "4" color="#666666">Start Date </font><input type="text" class="start" name="start" placeholder="1990">
+        <font size = "4" color="#666666">End Date </font> <input type="text" class="end" name="end" placeholder="2013">
+</form> -->
+<br>
+
+<form action="." method="POST" class="form-horizontal">
+        <font size = "4" color="#666666">Start Date </font><input type="text" class="start" name="start" placeholder="1990">
+        <font size = "4" color="#666666">End Date </font> <input type="text" class="end" name="end" placeholder="2013">
+
+<br>
+
+        <font size ="4"><center><b>Dataset One</b></font>
+        <div class="form-group">
+        <div class = "col-sm-10">
+        <input type="text" class="form-control" name="data1" placeholder="California Popluation"></div></div>
+        <font size ="4"><center><b>Dataset Two</b></font>
+        <div class="form-group">
+        <div class = "col-sm-10">
+        <input type="text" class="form-control" name="data2" placeholder="United States GDP"></div></div>
+
+<button id="unravel" type="button" class="btn btn-default" value="send">Unravel</button>
+
+</form>
+</div>
+
+
+
+
+
+<div class = "chartlabel" id="plot">
+<center><h1>Correlation: {{ R }} </h><br><br>
+</div>
+
+<div class = "chart" id="plot">
+
+<script type="text/javascript">
+// data that you want to plot, I've used separate arrays for x and y values
+var xdata = {{ data1 }},
+    ydata = {{ data2 }};
+var r = {{ R }},
+    m = {{ m }},
+    b = {{ b }};
+
+var xlab = "{{ name1 }}",
+    ylab = "{{ name2 }}";
+
+// size and margins for the chart
+var margin = {top: 20, right: 15, bottom: 60, left: 60}
+  , width = 760 - margin.left - margin.right
+  , height = 500 - margin.top - margin.bottom;
+
+// x and y scales, I've used linear here but there are other options
+// the scales translate data values to pixel values for you
+var x = d3.scale.linear()
+          .domain([d3.min(xdata), d3.max(xdata)])  // the range of the values to plot
+          .range([ 0, width ]);        // the pixel range of the x-axis
+
+var y = d3.scale.linear()
+          .domain([d3.min(ydata), d3.max(ydata)])
+          .range([ height, 0 ]);
+
+// the chart object, includes all margins
+var chart = d3.select('body')
+    .append('svg:svg')
+    .attr('width', width + margin.right + margin.left)
+    .attr('height', height + margin.top + margin.bottom)
+    .attr('class', 'chart')
+
+// the main object where the chart and axis will be drawn
+var main = chart.append('g')
+    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+    .attr('width', width)
+    .attr('height', height)
+    .attr('class', 'main')
+
+// draw the x axis
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient('bottom');
+
+main.append('g')
+    .attr('transform', 'translate(0,' + height + ')')
+    .attr('class', 'main axis date')
+    .call(xAxis);
+
+// draw the y axis
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient('left');
+
+main.append('g')
+    .attr('transform', 'translate(0,0)')
+    .attr('class', 'main axis date')
+    .call(yAxis);
+
+
+var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+// draw the graph object
+var g = main.append("svg:g");
+
+g.append("svg:line")
+    .attr("x1", x(d3.min(xdata)))
+    .attr("y1", y(m*d3.min(xdata)+b))
+    .attr("x2", x(xdata[xdata.length-1]))
+    .attr("y2", y(m*xdata[xdata.length-1]+b))
+    .style("stroke", "rgb(219,215,215)")
+    .style("stroke-width", 3)
+    .style("position", "relative")
+
+
+g.selectAll("scatter-dots")
+  .data(ydata)  // using the values in the ydata array
+  .enter().append("svg:circle")  // create a new circle for each value
+      .attr("cy", function (d) { return y(d); } ) // translate y value to a pixel
+      .attr("cx", function (d,i) { return x(xdata[i]); } ) // translate x value
+      .attr("r", 5) // radius of circle
+      .style("opacity", 0.6) // opacity of circle
+      .style("position", "relative")
+      // .style("z-index", 100)
+      .on("mouseover", function(d,i) {
+            div.transition()
+            .duration(200)
+            .style("opacity", .9);
+            div.html("(" + xdata[i] + "," + d + ")")
+            .style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY - 28) + "px");
+        })
+       .on("mouseout", function(d) {
+        div.transition()
+            .duration(500)
+            .style("opacity", 0);
+        });
+
+// g.selectAll("text")
+//     .data(ydata)
+//     .enter()
+//     .append("text")
+//     .text(function(d, i) { return xdata[i] + "," + d;})
+//     .attr("x", function(d,i) { return x(xdata[i]);})
+//     .attr("y", function(d) { return y(d);})
+//     .attr("font-family", "sans-serif")
+//     .attr("font-size", "11px")
+//     .attr("fill", "red");
+
+// text label for the x axis
+g.append("text")
+        .attr("x", width/2 )
+        .attr("y",  margin.top + height + margin.bottom / 2 )
+        .style("text-anchor", "middle")
+        .text(xlab);
+
+
+// text label for the y axis
+g.append("text")
+        .attr("x", margin.left/2)
+        .attr("y", height/2)
+        // .attr("transform", "translate(margin.left/2,)")
+        .attr("transform", "rotate(-90, -40, 210)")
+        .style("text-anchor", "middle")
+        .text(ylab)
+
+
+
+</script>
+</div>
+
+<div class ="pic">
+    <img id="sphinx" src="static/images/sphinx.jpg">
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#unravel').click(function () {
+        $('#plot').hide();
+        $('#sphinx').hide();
+        $('#plot').fadeIn('slow');
+    });
+
+});
+
+</script>
+
+</body>
+
+</html>
