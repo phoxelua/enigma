@@ -67,4 +67,3 @@ def my_form_post():
 def chart():
     # global m, b, r, p, stderr, d1v, d2v
     return render_template('chart.html', data1=d1v, name1=n1, data2=d2v,  name2=n2, R=r, m=m, b=b)
-    # return render_template('chart.html', data1=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], data2=[11, 10, 2, 7, 5, 21, 1, 2, 8, 9, 1, 5, 1], R=r, m=2.01, b=4.98)

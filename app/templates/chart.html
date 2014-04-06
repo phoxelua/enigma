@@ -91,6 +91,16 @@ var div = d3.select("body").append("div")
 // draw the graph object
 var g = main.append("svg:g"); 
 
+g.append("svg:line")
+    .attr("x1", x(d3.min(xdata)))
+    .attr("y1", y(m*d3.min(xdata)+b))
+    .attr("x2", x(xdata[xdata.length-1]))
+    .attr("y2", y(m*xdata[xdata.length-1]+b))
+    .style("stroke", "rgb(6,120,155)")   
+    .style("stroke-width", 10)
+    .style("position", "relative")
+
+
 g.selectAll("scatter-dots")
   .data(ydata)  // using the values in the ydata array
   .enter().append("svg:circle")  // create a new circle for each value
@@ -124,15 +134,6 @@ g.selectAll("scatter-dots")
 // 	   .attr("font-family", "sans-serif")
 // 	   .attr("font-size", "11px")
 // 	   .attr("fill", "red");
-
-g.append("svg:line")
-    .attr("x1", x(d3.min(xdata)))
-    .attr("y1", y(m*d3.min(xdata)+b))
-    .attr("x2", x(xdata[xdata.length-1]))
-    .attr("y2", y(m*xdata[xdata.length-1]+b))
-    .style("stroke", "rgb(6,120,155)")   
-    .style("stroke-width", 10)
-    .style("position", "relative")
 
 // text label for the x axis
 g.append("text")      
