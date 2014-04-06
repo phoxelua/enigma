@@ -1,11 +1,11 @@
-# all the imports
+from flask import request, session, g, redirect, url_for, abort, \
+     render_template, flash
+from app import app
 from Input import *
 from DataSet import *
 import os
 import sqlite3
-from flask import Flask, request, session, g, redirect, url_for, abort, \
-     render_template, flash
-from app import app
+
 
 
 #Lol global variables
