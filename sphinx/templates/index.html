@@ -2,5 +2,11 @@
 <!doctype html>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 
-Welcome to Sphinx!
+<img src ="{{ url_for('static', filename='images/logo.png') }}">
 
+<form action="." method="POST">
+        <input type="text" name="query">
+        <input type="submit" name="my-form" value="Send">
+</form>
+
+{{ query }}

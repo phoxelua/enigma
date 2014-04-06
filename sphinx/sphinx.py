@@ -1,4 +1,5 @@
 # all the imports
+from Input import *
 import os
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, \
@@ -18,9 +19,16 @@ app.config.update(dict(
 ))
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/', methods=['POST'])
+def my_form_post():
+    query = request.form['query']
+    #Input(query,ewrewr,asdas)
+    return render_template('index.html',query=query)
 
 
 if __name__ == '__main__':
